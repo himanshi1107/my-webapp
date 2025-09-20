@@ -24,10 +24,13 @@ systemctl start codedeploy-agent || true
 mkdir -p /opt/${PROJECT}
 chown -R ec2-user:ec2-user /opt/${PROJECT}
 
+# Make deployment scripts executable
+chmod -R +x /opt/${PROJECT}/scripts/hooks/BeforeInstall/*.sh
+chmod -R +x /opt/${PROJECT}/scripts/hooks/AfterInstall/*.sh
+
 # Compute ACCOUNT_ID dynamically inside the instance
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text --region ${REGION})
 
 # ECR login
 aws ecr get-login-password --region ${REGION} \
   | docker login --username AWS --password-stdin \$ACCOUNT_ID.dkr.ecr.\${REGION}.amazonaws.com
-
