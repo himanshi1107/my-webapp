@@ -36,7 +36,15 @@ resource "aws_instance" "app" {
   key_name               = var.ec2_key_name
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
-  user_data              = templatefile("${path.module}/userdata.tpl", { region = var.aws_region, project = var.project_name })
+  user_data = templatefile("${path.module}/userdata.tpl", {
+    REGION  = var.aws_region
+    PROJECT = var.project_name
+  })
+
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp2"
+  }
 
   tags = {
     Name = "${var.project_name}-app-instance"
