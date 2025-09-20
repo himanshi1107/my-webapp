@@ -104,8 +104,9 @@ resource "aws_iam_role" "ec2_role" {
 }
 resource "aws_iam_role_policy_attachment" "ec2_ecr" {
   role       = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
+
 resource "aws_iam_role_policy_attachment" "ec2_s3" {
   role       = aws_iam_role.ec2_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
@@ -118,5 +119,5 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 
 resource "aws_iam_role_policy_attachment" "ec2_codedeploy" {
   role       = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy"
 }
