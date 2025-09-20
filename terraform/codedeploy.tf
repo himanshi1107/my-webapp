@@ -22,3 +22,14 @@ resource "aws_codedeploy_deployment_group" "dg" {
     events  = ["DEPLOYMENT_FAILURE"]
   }
 }
+
+
+# Automatically trigger deployment for the S3 zip
+resource "aws_codedeploy_deployment" "deploy_latest" {
+  application_name      = aws_codedeploy_app.app.name
+  deployment_group_name = aws_codedeploy_deployment_group.dg.deployment_group_name
+
+  s3_bucket   = aws_s3_bucket.artifact_bucket.bucket
+  s3_key      = "deploy.zip"
+  bundle_type = "zip"
+}
