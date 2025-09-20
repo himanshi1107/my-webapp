@@ -74,9 +74,8 @@ data "aws_iam_policy_document" "codedeploy_assume" {
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
-      identifiers = ["codebuild.amazonaws.com"]
+      identifiers = ["codedeploy.amazonaws.com"]
     }
-
   }
 }
 resource "aws_iam_role" "codedeploy_role" {
@@ -87,6 +86,7 @@ resource "aws_iam_role_policy_attachment" "codedeploy_managed" {
   role       = aws_iam_role.codedeploy_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 }
+
 
 # EC2 role (so instance can pull from ECR and read S3)
 data "aws_iam_policy_document" "ec2_assume" {
