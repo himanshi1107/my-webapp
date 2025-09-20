@@ -2,7 +2,11 @@
 data "aws_iam_policy_document" "codebuild_assume" {
   statement {
     actions = ["sts:AssumeRole"]
-    principals { type = "Service" identifiers = ["codebuild.amazonaws.com"] }
+    principals {
+      type        = "Service"
+      identifiers = ["codebuild.amazonaws.com"]
+    }
+
   }
 }
 
@@ -28,7 +32,11 @@ resource "aws_iam_role_policy_attachment" "codebuild_s3" {
 data "aws_iam_policy_document" "codepipeline_assume" {
   statement {
     actions = ["sts:AssumeRole"]
-    principals { type = "Service" identifiers = ["codepipeline.amazonaws.com"] }
+    principals {
+      type        = "Service"
+      identifiers = ["codebuild.amazonaws.com"]
+    }
+
   }
 }
 
@@ -64,7 +72,11 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 data "aws_iam_policy_document" "codedeploy_assume" {
   statement {
     actions = ["sts:AssumeRole"]
-    principals { type = "Service" identifiers = ["codedeploy.amazonaws.com"] }
+    principals {
+      type        = "Service"
+      identifiers = ["codebuild.amazonaws.com"]
+    }
+
   }
 }
 resource "aws_iam_role" "codedeploy_role" {
@@ -80,7 +92,11 @@ resource "aws_iam_role_policy_attachment" "codedeploy_managed" {
 data "aws_iam_policy_document" "ec2_assume" {
   statement {
     actions = ["sts:AssumeRole"]
-    principals { type = "Service" identifiers = ["ec2.amazonaws.com"] }
+    principals {
+      type        = "Service"
+      identifiers = ["codebuild.amazonaws.com"]
+    }
+
   }
 }
 resource "aws_iam_role" "ec2_role" {
