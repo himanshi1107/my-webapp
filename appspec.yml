@@ -4,7 +4,12 @@ files:
   - source: /
     destination: /home/ec2-user/app
 hooks:
-  AfterInstall:
-    - location: scripts/start.sh
+  BeforeInstall:
+    - location: scripts/hooks/BeforeInstall/pull_image.sh
       timeout: 300
       runas: ec2-user
+  AfterInstall:
+    - location: scripts/hooks/AfterInstall/restart_container.sh
+      timeout: 300
+      runas: ec2-user
+
