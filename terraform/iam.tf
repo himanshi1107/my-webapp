@@ -36,7 +36,6 @@ data "aws_iam_policy_document" "codepipeline_assume" {
       type        = "Service"
       identifiers = ["codebuild.amazonaws.com"]
     }
-
   }
 }
 
@@ -94,7 +93,7 @@ data "aws_iam_policy_document" "ec2_assume" {
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
-      identifiers = ["codebuild.amazonaws.com"]
+      identifiers = ["ec2.amazonaws.com"]
     }
 
   }
